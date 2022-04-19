@@ -15,8 +15,12 @@
 
 <div class="container-fluid mt-3" id="app">
     <input type="text" class="form-control" v-model="criterioDeBusqueda"
-        placeholder="Ingresar un criterio de busqueda...">
+        placeholder="Ingrese el nombre o apellido que desee buscar">
     <br>
+    <input type="text" class="form-control" v-model="criterioDeBusqueda1"
+        placeholder="Ingresar el DNI que desee buscar">
+    <br>
+
     <div class="card-deck m-0">
         <div class="row">
             <div class="col" v-for="persona in personasFiltradas">
@@ -31,7 +35,6 @@
         </div>
     </div>
 
-</div>
 
 </html>
 
@@ -40,7 +43,8 @@
         el: '#app',
         data: {
             criterioDeBusqueda: '',
-            //Aquí, en este array es donde tienen que agregar su información
+            criterioDeBusqueda1: '',
+
             personas: [
                 {
                     nombre: "Daniel",
@@ -49,26 +53,41 @@
                     dni: "20442873"
                 },
                 {
-                    nombre: "...",
-                    apellido: "...",
-                    correo: "...",
-                    dni: "..."
+                    nombre: "Agustina",
+                    apellido: "Lois",
+                    correo: "agusslois98@gmail.com",
+                    dni: "41469763"
+                },
+                {
+                    nombre: "Agustina",
+                    apellido: "Lois",
+                    correo: "agusslois98@gmail.com",
+                    dni: "20478963"
                 },
             ]
 
         },
+
         computed: {
             personasFiltradas() {
                 return this.personas.filter((persona) => {
-                    let registroCompleto = `${persona.nombre} ${persona.apellido} ${persona.dni} ${persona.correo}`
-                    return registroCompleto.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase())
+                    let personaBuscada = `${persona.nombre} ${persona.apellido}`
+                    let dniBuscado = `${persona.dni}`
+                    return personaBuscada.toLowerCase().includes(this.criterioDeBusqueda.toLowerCase()) && dniBuscado.toLowerCase().includes(this.criterioDeBusqueda1.toLowerCase())
+
                 });
-            }
+            },
+
         },
+
+
+
+
         methods: {
             getNombreCompleto(persona) {
                 return `${persona.nombre} ${persona.apellido}`
-            }
+            },
         }
     });
+
 </script>
